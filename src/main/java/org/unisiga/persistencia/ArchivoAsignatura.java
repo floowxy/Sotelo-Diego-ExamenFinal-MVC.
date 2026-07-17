@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.unisiga.librerias.SerializadoraGen;
 import org.unisiga.model.Asignatura;
-import org.unisiga.model.Estudiante;
 
-public class ArchivoUniSiga {
+public class ArchivoAsignatura {
     private String ruta;
 
-    public ArchivoUniSiga() {
-        this.ruta = "datos/unisiga.dat";
+    public ArchivoAsignatura() {
+        this.ruta = "datos/asignaturas.dat";
         crearCarpetaDatos();
     }
 
@@ -22,28 +21,27 @@ public class ArchivoUniSiga {
         }
     }
 
-    public boolean guardar(List<Estudiante> estudiantes, List<Asignatura> asignaturas) {
+    public boolean guardarAsignaturas(List<Asignatura> asignaturas) {
         try {
-            ContenedorDatos contenedor = new ContenedorDatos(estudiantes, asignaturas);
-            SerializadoraGen.serializar(ruta, contenedor);
+            SerializadoraGen.serializar(ruta, new ArrayList<>(asignaturas));
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public ContenedorDatos cargar() {
+    public List<Asignatura> cargarAsignaturas() {
         try {
             File archivo = new File(ruta);
             if (!archivo.exists()) {
-                return new ContenedorDatos(new ArrayList<>(), new ArrayList<>());
+                return new ArrayList<>();
             }
             Object obj = SerializadoraGen.deserializar(ruta);
-            if (obj instanceof ContenedorDatos) {
-                return (ContenedorDatos) obj;
+            if (obj instanceof List) {
+                return (List<Asignatura>) obj;
             }
         } catch (Exception e) {
         }
-        return new ContenedorDatos(new ArrayList<>(), new ArrayList<>());
+        return new ArrayList<>();
     }
 }
