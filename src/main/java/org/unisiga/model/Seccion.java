@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Materialización física de una asignatura en el semestre.
  */
-public class Seccion {
+public class Seccion implements java.io.Serializable {
     private char idGrupo;
     private int cupoMaximo;
     private String horario;
@@ -24,8 +24,16 @@ public class Seccion {
     }
 
     public void asignarDocente(Academico docente) {
-        // TODO: Asignar al docente de forma segura controlando la asociación bidireccional
-        throw new UnsupportedOperationException("Método asignarDocente() no implementado aún.");
+        if (docente == null || this.docenteDicta == docente) {
+            return;
+        }
+        if (this.docenteDicta != null) {
+            this.docenteDicta.getSeccionesDictadas().remove(this);
+        }
+        this.docenteDicta = docente;
+        if (!docente.getSeccionesDictadas().contains(this)) {
+            docente.getSeccionesDictadas().add(this);
+        }
     }
 
     // Getters y Setters

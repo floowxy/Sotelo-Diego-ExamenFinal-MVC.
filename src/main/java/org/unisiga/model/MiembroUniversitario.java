@@ -4,7 +4,7 @@ package org.unisiga.model;
  * Clase Abstracta Base que representa a cualquier miembro de la universidad.
  * [EVALUACIÓN]: El estudiante debe comprender el concepto de herencia y atributos protegidos.
  */
-public abstract class MiembroUniversitario {
+public abstract class MiembroUniversitario implements java.io.Serializable {
     protected String rut;
     protected String nombre;
     protected String correoInstitucional;

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Clase de Asociación que resuelve la relación N:M entre Estudiante y Sección.
  */
-public class Inscripcion {
+public class Inscripcion implements java.io.Serializable {
     private Estudiante estudiante;
     private Seccion seccion;
     private String estadoInscripcion; // "Inscrito", "Aprobado", "Reprobado"

@@ -7,7 +7,7 @@ import java.util.List;
  * Catálogo general de asignaturas. Controla las secciones y evaluaciones unificadas.
  * [EVALUACIÓN]: Control absoluto de ciclos de vida mediante Composición Fuerte y Auto-asociación.
  */
-public class Asignatura {
+public class Asignatura implements java.io.Serializable {
     private String codigo;
     private String nombre;
     private int creditosSct;
@@ -29,8 +29,13 @@ public class Asignatura {
     }
 
     public void agregarPrerrequisito(Asignatura asig) {
-        // TODO: Agregar asignatura de prerrequisito evitando duplicados
-        throw new UnsupportedOperationException("Método agregarPrerrequisito() no implementado aún.");
+        if (asig == null || asig == this) {
+            return;
+        }
+        if (this.prerrequisitos.contains(asig)) {
+            return;
+        }
+        this.prerrequisitos.add(asig);
     }
 
     /**

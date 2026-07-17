@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Hito evaluativo del plan unificado de la asignatura.
  */
-public class Evaluacion {
+public class Evaluacion implements java.io.Serializable {
     private int id;
     private String titulo;
     private float ponderacion;

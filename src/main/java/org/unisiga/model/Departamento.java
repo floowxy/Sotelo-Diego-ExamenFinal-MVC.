@@ -7,7 +7,7 @@ import java.util.List;
  * Representa un Departamento Académico (ej: Computación).
  * [EVALUACIÓN]: Demostrar la implementación del concepto de agregación (el académico pertenece, pero tiene ciclo independiente).
  */
-public class Departamento {
+public class Departamento implements java.io.Serializable {
     private String codigoDepto;
     private String nombre;
     private List<Academico> academicos;
@@ -19,8 +19,14 @@ public class Departamento {
     }
 
     public void asociarAcademico(Academico acad) {
-        // TODO: Asociar el académico a este departamento asegurando la bidireccionalidad segura
-        throw new UnsupportedOperationException("Método asociarAcademico() no implementado aún.");
+        if (acad == null) {
+            return;
+        }
+        if (this.academicos.contains(acad)) {
+            return;
+        }
+        this.academicos.add(acad);
+        acad.setDepartamento(this);
     }
 
     public String getCodigoDepto() { return codigoDepto; }
