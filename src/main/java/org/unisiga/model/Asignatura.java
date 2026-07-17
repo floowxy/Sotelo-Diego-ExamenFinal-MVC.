@@ -42,16 +42,31 @@ public class Asignatura implements java.io.Serializable {
      * LÓGICA DE COMPOSICIÓN: Instancia una sección semestral y la asocia.
      */
     public Seccion crearSeccion(char idGrupo, int cupoMaximo, String horario) {
-        // TODO: Crear y retornar una nueva sección. Recuerda que el constructor de Sección es restringido.
-        throw new UnsupportedOperationException("Método crearSeccion() no implementado aún.");
+        if (cupoMaximo <= 0) {
+            throw new IllegalArgumentException("El cupo maximo debe ser mayor a cero.");
+        }
+        for (Seccion s : this.secciones) {
+            if (s.getIdGrupo() == idGrupo) {
+                throw new IllegalArgumentException("Ya existe la seccion " + idGrupo + " en " + this.nombre + ".");
+            }
+        }
+        Seccion seccion = new Seccion(idGrupo, cupoMaximo, horario, this);
+        this.secciones.add(seccion);
+        return seccion;
     }
 
     /**
      * LÓGICA DE COMPOSICIÓN: Instancia una evaluación unificada para la asignatura.
      */
     public Evaluacion crearEvaluacion(int id, String titulo, float ponderacion) {
-        // TODO: Crear y retornar una nueva evaluación oficial de la cátedra.
-        throw new UnsupportedOperationException("Método crearEvaluacion() no implementado aún.");
+        for (Evaluacion e : this.evaluaciones) {
+            if (e.getId() == id) {
+                throw new IllegalArgumentException("Ya existe una evaluacion con id " + id + " en " + this.nombre + ".");
+            }
+        }
+        Evaluacion evaluacion = new Evaluacion(id, titulo, ponderacion, this);
+        this.evaluaciones.add(evaluacion);
+        return evaluacion;
     }
 
     // Getters
